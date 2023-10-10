@@ -12,11 +12,14 @@ export default class Cart {
     }
 
     get sum(): number {
-        let result = 0;
-        this._items.forEach(element => {
-            result += element.price;
-        })
-        return result
+        // let result = 0;
+        // this._items.forEach(element => {
+        //     result += element.price;
+        // })
+        // return result
+
+        const result = this._items.reduce((accumulator, currentValue) => accumulator + currentValue.price, 0);
+        return result;
     }
 
     sumDiscount(discount: number) {
@@ -24,10 +27,6 @@ export default class Cart {
     }
 
     remove(id: number): void {
-        for (let i = 0; i < this._items.length; i++) {
-            if (this._items[i].id === id) {
-                this._items.splice(i, 1);
-            }
-        }
+        this._items = this._items.filter((el: Buyable) => el.id !== id);
     }
 }
